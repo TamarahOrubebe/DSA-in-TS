@@ -21,6 +21,7 @@ function walk(maze: string[], wall: string, curr: Point, end: Point, seen: boole
     }
     // if we hit the end 
     if (curr.x === end.x && curr.y === end.y) {
+        path.push(curr);
         return true;
     }
 
