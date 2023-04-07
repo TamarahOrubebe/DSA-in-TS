@@ -1,34 +1,34 @@
 const dir = [
-    [-1, 0],
     [1, 0],
-    [0, -1],
-    [0, 1]
-]
-function walk(maze: string[], wall: string, curr: Point, end: Point, seen: Boolean[][], path: Point[]): Boolean {
-    // base cases
-        // if we get off the maze/board
+    [-1, 0],
+    [0, 1],
+    [0, -1]
+];
+
+function walk(maze: string[], wall: string, curr: Point, end: Point, seen: boolean[][], path: Point[]): boolean {
+    // Base cases;
+    // if we are off the maze
     if (curr.x < 0 || curr.x >= maze[0].length || curr.y < 0 || curr.y >= maze.length) {
         return false;
     }
-        // if there's a wall
+    // if we hit a wall
     if (maze[curr.y][curr.x] === wall) {
         return false;
     }
-        // if we have seen this point before
+    // if we have come across/visited the point before
     if (seen[curr.y][curr.x]) {
         return false;
     }
-        // if we get to the end.
+    // if we hit the end 
     if (curr.x === end.x && curr.y === end.y) {
-        path.push(end)
         return true;
     }
 
-    //3 recurse 
-    // pre
+    //pre
     seen[curr.y][curr.x] = true;
-    path.push(curr)
-    // recurse
+    path.push(curr);
+
+    //recurse
     for (let i = 0; i < dir.length; i++) {
         const [x, y] = dir[i];
         if(walk(maze, wall, {
@@ -37,16 +37,15 @@ function walk(maze: string[], wall: string, curr: Point, end: Point, seen: Boole
         }, end, seen, path)) {
             return true;
         }
-        
     }
-    // post
-    path.pop()
+    //post
+    path.pop();
 
     return false;
 }
 
 export default function solve(maze: string[], wall: string, start: Point, end: Point): Point[] {
-   const seen: Boolean[][] = [];
+    const seen: boolean[][] = [];
     const path: Point[] = [];
 
     for (let i = 0; i < maze.length; i++) {
