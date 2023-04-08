@@ -55,7 +55,6 @@ export default class DoublyLinkedList<T> {
             node.prev.next = node;
         }
        
-
     }
 
 
@@ -71,6 +70,7 @@ export default class DoublyLinkedList<T> {
         this.tail.next = node;
         this.tail = node;
     }
+
     remove(item: T): T | undefined {
         let curr = this.head;
         for (let i = 0; curr && i < this.length; i++) {
@@ -84,10 +84,10 @@ export default class DoublyLinkedList<T> {
             return undefined;
         }
 
-
         return this.removeNode(curr);    
         
     }
+
     get(idx: number): T | undefined {
         return this.getAtIdx(idx)?.value;
     }
@@ -131,6 +131,7 @@ export default class DoublyLinkedList<T> {
         node.prev = node.next = undefined;
         return node.value;
     }
+
     private getAtIdx(idx: number): Node<T> | undefined {
         let node = this.head;
         for (let i = 0; node && i < idx; i++) {
@@ -138,6 +139,5 @@ export default class DoublyLinkedList<T> {
         }
         return node;
     }
-
     
 }
