@@ -9,9 +9,27 @@ export default class MinHeap {
     }
 
     insert(value: number): void {
-
+        this.data[this.length] = value;
+        this.heapifyUp(this.length);
+        this.length++;
     }
+
     delete(): number {
+        if (this.length === 0) {
+            return -1;
+        }
+        const output = this.data[0];
+        if (this.length === 1) {
+            this.length = 0;
+            this.data = [];
+            return output;
+        }
+
+        this.data[0] = this.data[this.length - 1];
+        this.length--;
+        this.heapifyDown(0);
+
+        return output;
 
     }
 
@@ -30,10 +48,12 @@ export default class MinHeap {
         // check the smallest of the children and swap that one with the parent. 
         // after the swap, call the heapifyDown() again to continue.
         if (lValue > rValue && pValue > rValue) {
-            [this.data[idx], this.data[rIdx]] = [this.data[rIdx], this.data[idx]] 
+            this.data[idx] = rValue;
+            this.data[rIdx] = pValue;
             this.heapifyDown(rIdx)
         } else if (rValue > lValue && pValue > lValue) {
-            [this.data[idx], this.data[lIdx]] = [this.data[lIdx], this.data[idx]] 
+            this.data[idx] = lValue;
+            this.data[lIdx] = pValue;
             this.heapifyDown(lIdx)
         }
 
@@ -45,7 +65,8 @@ export default class MinHeap {
 
         if (parentValue > currentValue) {
             // we swap the currentValue with the prent to maintain the minHeap structure
-            [this.data[idx], this.data[p]] = [this.data[p], this.data[idx]];
+            this.data[p] = currentValue;
+            this.data[idx] = parentValue;
 
             // call the heapifyUp func to continue swapping until the minimum value is at the top.
             this.heapifyUp(p)
