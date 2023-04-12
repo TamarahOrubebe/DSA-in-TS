@@ -14,6 +14,7 @@ export default function bfs(graph: WeightedAdjacencyMatrix, source: number, need
 
         const c: number[] = graph[curr];
         for (let i = 0; i < c.length; i++) {
+            // if there's no connection
             if (c[i] === 0) {
                 continue;
             }
@@ -38,7 +39,9 @@ export default function bfs(graph: WeightedAdjacencyMatrix, source: number, need
     }
 
     if (path.length) {
-        return [source].concat(path.reverse())
+        path.push(source)
+        return path.reverse();
+        
     }
 
     return null
